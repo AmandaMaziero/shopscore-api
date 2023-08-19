@@ -1,0 +1,44 @@
+{
+  "name": "shopscore-api",
+  "version": "1.0.0",
+  "description": "Api em NodeJS para o envio de avaliações de produtos, lojas e serviços.",
+  "main": "src/index.js",
+  "repository": "https://github.com/AmandaMaziero/shopscore-api.git",
+  "author": "Amanda Aparecida Julio Maziero <mandahmaziero1999@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "commit": "git-cz",
+    "db:prepare": "yarn sequelize db:migrate:undo:all && yarn sequelize db:migrate && yarn sequelize-cli db:seed:all",
+    "prepare": "husky install",
+    "start": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.1",
+    "moment": "^2.29.4",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.6.0",
+    "nodemailer": "^6.9.4",
+    "path": "^0.12.7",
+    "sequelize": "^6.32.1",
+    "sequelize-cli": "^6.6.1",
+    "swagger-ui-express": "^5.0.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.7.1",
+    "@commitlint/config-conventional": "^17.7.0",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^8.0.3",
+    "nodemon": "^3.0.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}

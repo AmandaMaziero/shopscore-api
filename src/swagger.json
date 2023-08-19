@@ -1,0 +1,353 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "ShopScore",
+        "description": "Api em NodeJS para o envio de avaliações de produtos, lojas e serviços.",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000/",
+            "description": "API local"
+        }
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "summary": "Home",
+                "tags": [
+                    "Home"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "summary": "Login",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "admin@admin.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "Shop@2023"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {}
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {}
+                    }
+                },
+                "x-codegen-request-body-name": "body"
+            }
+        },
+        "/api/users": {
+            "post": {
+                "summary": "Register",
+                "tags": [
+                    "Users"
+                ],
+                "description": "<b>Campos requeridos:</b> name, email, password, birthDate, cpf, telephone, gender, type. <br> <b>Type:</b> 1 - Cliente; 2 - Administrador. <br> <b>Gender:</b> 0 - Outro/Prefiro não informar; 1 - Feminino; 2 - Masculino;",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Cliente"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "client@email.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "Shop@2023"
+                                    },
+                                    "birthDate": {
+                                        "type": "string",
+                                        "example": "2000-01-01"
+                                    },
+                                    "cpf": {
+                                        "type": "string",
+                                        "example": "44444444444"
+                                    },
+                                    "telephone": {
+                                        "type": "string",
+                                        "example": "15999999999"
+                                    },
+                                    "gender": {
+                                        "type": "number",
+                                        "example": 1
+                                    },
+                                    "type": {
+                                        "type": "number",
+                                        "example": 1
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {}
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {}
+                    }
+                },
+                "x-codegen-request-body-name": "body"
+            }
+        },
+        "/api/users/{id}": {
+            "get": {
+                "summary": "Get By User Id",
+                "tags": [
+                    "Users"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {}
+                    }
+                },
+                "x-codegen-request-body-name": "body"
+            },
+            "put": {
+                "summary": "Update",
+                "tags": [
+                    "Users"
+                ],
+                "description": "<b>Campos requeridos:</b> name, email, telephone.",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Cliente"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "client@email.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "Shop@2023"
+                                    },
+                                    "telephone": {
+                                        "type": "string",
+                                        "example": "15999999999"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "base64"
+                                    },
+                                    "removeImage": {
+                                        "type": "boolean",
+                                        "example": false
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {}
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {}
+                    }
+                },
+                "x-codegen-request-body-name": "body"
+            },
+            "patch": {
+                "summary": "Change Status",
+                "tags": [
+                    "Users"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {}
+                    }
+                },
+                "x-codegen-request-body-name": "body"
+            },
+            "delete": {
+                "summary": "Delete",
+                "tags": [
+                    "Users"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {}
+                    }
+                },
+                "x-codegen-request-body-name": "body"
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}
