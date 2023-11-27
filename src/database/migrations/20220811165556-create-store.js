@@ -28,28 +28,12 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING(100)
       },
-      stateRegistration: {
-        allowNull: false,
-        type: Sequelize.STRING(9)
-      },
-      municipalRegistration: {
-        allowNull: false,
-        type: Sequelize.STRING(11)
-      },
-      cnae: {
-        allowNull: false,
-        type: Sequelize.STRING(7)
-      },
       description: {
         allowNull: false,
         type: Sequelize.STRING(100)
       },
-      companySize: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
       telephone: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING(11)
       },
       cell: {
