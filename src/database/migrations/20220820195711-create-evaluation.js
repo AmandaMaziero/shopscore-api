@@ -32,6 +32,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING(500)
       },
+      rating: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
       answer: {
         type: Sequelize.STRING(500)
       },

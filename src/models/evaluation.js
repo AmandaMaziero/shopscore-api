@@ -38,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     idstoreproduct: DataTypes.INTEGER,
     title: DataTypes.STRING,
     description: DataTypes.STRING,
+    rating: DataTypes.INTEGER,
     answer: DataTypes.STRING,
     status: DataTypes.INTEGER
   }, {
