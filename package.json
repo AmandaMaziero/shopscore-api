@@ -9,7 +9,6 @@
   "scripts": {
     "commit": "git-cz",
     "db:prepare": "yarn sequelize db:migrate:undo:all && yarn sequelize db:migrate && yarn sequelize-cli db:seed:all",
-    "prepare": "husky install",
     "start": "nodemon src/index.js"
   },
   "dependencies": {
