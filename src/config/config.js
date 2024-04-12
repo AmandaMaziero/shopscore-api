@@ -15,10 +15,10 @@ module.exports = {
     logging: false
   },
   homolog: {
-    "username": "",
-    "password": "",
-    "database": "",
-    "host": "127.0.0.1",
+    "username": "sql5698060",
+    "password": "JsbgfI3FKU",
+    "database": "sql5698060",
+    "host": "sql5.freemysqlhosting.net",
     "dialect": "mysql",
     "dialectOptions": {
       "timezone": "local"
