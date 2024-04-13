@@ -1,8 +1,10 @@
 const dotenv = require('dotenv')
+const { join } = require('path')
+const fs = require('fs')
 dotenv.config()
 
 module.exports = {
-  development: {
+  "development": {
     "username": "root",
     "password": "",
     "database": "shopscore",
@@ -12,21 +14,26 @@ module.exports = {
       "timezone": "local"
     },
     "timezone": "America/Sao_Paulo",
-    logging: false
+    "logging": false
   },
-  homolog: {
-    "username": "sql5698060",
-    "password": "JsbgfI3FKU",
-    "database": "sql5698060",
-    "host": "sql5.freemysqlhosting.net",
+  "homolog": {
+    "username": process.env.DB_USER,
+    "password": process.env.DB_PASS,
+    "database": process.env.DB_NAME,
+    "host": process.env.DB_HOST,
+    "port": process.env.DB_PORT,
     "dialect": "mysql",
     "dialectOptions": {
+      "ssl": {
+        "ca": fs.readFileSync(join(__dirname, '../cert/ca.pem')),
+        "require": true
+      },
       "timezone": "local"
     },
     "timezone": "America/Sao_Paulo",
-    logging: false
+    "logging": false
   },
-  production: {
+  "production": {
     "username": "",
     "password": "",
     "database": "",
@@ -36,6 +43,6 @@ module.exports = {
       "timezone": "local"
     },
     "timezone": "America/Sao_Paulo",
-    logging: false
+    "logging": false
   }
 }
