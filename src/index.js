@@ -19,13 +19,13 @@ app.use(express.json({limit: "50mb"}))
 app.use(express.urlencoded({ limit: "50mb", extended: true }))
 app.use(morgan("common"))
 
-const optionsSwagger = {
-    swaggerOptions: {
-        docExpansion: "none"
-    }
-}
+//const optionsSwagger = {
+//    swaggerOptions: {
+//        docExpansion: "none"
+//    }
+//}
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile, optionsSwagger))
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 app.get('/', (_, response) => {
     response.status(200).json({ success: true, message: "API da ShopScore na área, faça a sua requisição! 😜🫶" })
