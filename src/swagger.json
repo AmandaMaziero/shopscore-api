@@ -9,6 +9,10 @@
         {
             "url": "http://localhost:3000/",
             "description": "API local"
+        },
+        {
+            "url": "https://shopscore-api.vercel.app",
+            "description": "API online"
         }
     ],
     "paths": {
