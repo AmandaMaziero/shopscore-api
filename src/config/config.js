@@ -23,6 +23,7 @@ module.exports = {
     "host": process.env.DB_HOST,
     "port": process.env.DB_PORT,
     "dialect": "mysql",
+    "dialectModule": require('mysql2'),
     "dialectOptions": {
       "ssl": {
         "ca": fs.readFileSync(join(__dirname, '../cert/ca.pem')),
