@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   Product.init({
     name: DataTypes.STRING,
     description: DataTypes.STRING,
-    image: DataTypes.BLOB('long'),
+    image: DataTypes.STRING,
     status: DataTypes.INTEGER
   }, {
     sequelize,

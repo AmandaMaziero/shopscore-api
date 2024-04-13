@@ -63,25 +63,13 @@ class UserController {
     static async update(request, response) {
         try {
             const { id } = request.params
-            const { name, email, password, telephone, removeImage } = request.body
-            const image = request.file
+            const { name, email, password, telephone, image } = request.body
 
             if (!name || !email || !telephone)
                 return response.status(400).json({ success: false, message: "Fields is missing!" })
 
             const data = await db.User.findOne({ where: { id } })
             if (!data) return response.status(404).json({ success: false, message: "User not found!" })
-
-            let base64
-
-            if (image) {
-                base64 = Buffer.from(fs.readFileSync(image.path)).toString('base64')
-
-                fs.unlink(image.path, (error) => {
-                    if (error) throw error
-                    console.log(`${image.path} has been deleted!`)
-                })
-            }
 
             const regex = /^(?=.*[@!#$%^&*()/\\])[@!#$%^&*()/\\a-zA-Z0-9]{8,}$/
             const regextTest = password ? regex.test(password) : true
@@ -103,7 +91,7 @@ class UserController {
                 email,
                 password: password ? hash : data.password,
                 telephone: formattedPhone,
-                image: image ? base64 : removeImage ? null : data.image
+                image: image ? image : data.image
             })
 
             data.password = undefined

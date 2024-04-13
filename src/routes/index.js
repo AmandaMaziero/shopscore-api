@@ -5,6 +5,7 @@ const store = require("./store.routes")
 const product = require("./product.routes")
 const evaluation = require("./evaluation.routes")
 const comment = require("./comment.routes")
+const file = require("./file.routes")
 
 module.exports = app => {
     app.use(
@@ -14,6 +15,7 @@ module.exports = app => {
         store,
         product,
         evaluation,
-        comment
+        comment,
+        file
     )
 }

@@ -14,15 +14,9 @@ module.exports = {
         foreignKey: true,
         type: Sequelize.INTEGER
       },
-      filename1: {
+      image: {
         allowNull: false,
-        type: Sequelize.BLOB('long')
-      },
-      filename2: {
-        type: Sequelize.BLOB('long')
-      },
-      filename3: {
-        type: Sequelize.BLOB('long')
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

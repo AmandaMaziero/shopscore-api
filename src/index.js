@@ -10,7 +10,7 @@ const swaggerFile = require('./swagger.json')
 require("dotenv").config()
 
 const port = process.env.PORT ? process.env.PORT : 3000
-const url = process.env.URL ? process.env.URL : 'http://localhost:3000'
+const url = process.env.URL ? `${process.env.URL}:${port}` : `http://localhost:${port}`
 
 const app = express()
 

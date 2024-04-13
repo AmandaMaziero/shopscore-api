@@ -232,11 +232,7 @@
                                     },
                                     "image": {
                                         "type": "string",
-                                        "format": "base64"
-                                    },
-                                    "removeImage": {
-                                        "type": "boolean",
-                                        "example": false
+                                        "example": "https://shopscore.s3.amazonaws.com/users/arquivo.jpg"
                                     }
                                 }
                             }
@@ -335,6 +331,118 @@
                     },
                     "404": {
                         "description": "Not Found",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {}
+                    }
+                },
+                "x-codegen-request-body-name": "body"
+            }
+        },
+        "/api/files/{folder}": {
+            "post": {
+                "summary": "Create Files",
+                "tags": [
+                    "Files"
+                ],
+                "description": "<b>Campos requeridos:</b> file; <br> <b>Tipos de folders:</b> users e evaluations",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "folder",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "file": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {}
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {}
+                    }
+                },
+                "x-codegen-request-body-name": "body"
+            }
+        },
+        "/api/files/": {
+            "delete": {
+                "summary": "Delete Files",
+                "tags": [
+                    "Files"
+                ],
+                "description": "<b>Campos requeridos:</b> urls; <br>",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "urls": {
+                                        "type": "array",
+                                        "example": [
+                                            "https://shopscore.s3.amazonaws.com/evaluations/arquivo.png",
+                                            "https://shopscore.s3.amazonaws.com/users/arquivo.jpg"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {}
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
                         "content": {}
                     },
                     "500": {
@@ -707,7 +815,7 @@
                                     },
                                     "image": {
                                         "type": "string",
-                                        "format": "base64"
+                                        "example": "https://shopscore.s3.amazonaws.com/products/arquivo.jpg"
                                     }
                                 }
                             }
@@ -1013,7 +1121,7 @@
                                     },
                                     "image": {
                                         "type": "string",
-                                        "format": "base64"
+                                        "example": "https://shopscore.s3.amazonaws.com/products/arquivo.jpg"
                                     }
                                 }
                             }
@@ -1159,17 +1267,14 @@
                                         "type": "integer",
                                         "example": 1
                                     },
-                                    "filename1": {
-                                        "type": "string",
-                                        "format": "base64"
-                                    },
-                                    "filename2": {
-                                        "type": "string",
-                                        "format": "base64"
-                                    },
-                                    "filename3": {
-                                        "type": "string",
-                                        "format": "base64"
+                                    "images": {
+                                        "type": "array",
+                                        "items": {
+                                            "example": [
+                                                "https://shopscore.s3.amazonaws.com/evaluations/arquivo.png",
+                                                "https://shopscore.s3.amazonaws.com/evaluations/arquivo.jpg"
+                                            ]
+                                        }
                                     }
                                 }
                             }

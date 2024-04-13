@@ -18,9 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Annex.init({
     idevaluation: DataTypes.INTEGER,
-    filename1: DataTypes.BLOB('long'),
-    filename2: DataTypes.BLOB('long'),
-    filename3: DataTypes.BLOB('long')
+    image: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Annex',

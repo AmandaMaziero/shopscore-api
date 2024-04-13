@@ -6,26 +6,14 @@ const utilsFunctions = new Utils()
 class ProductController {
     static async register(request, response) {
         try {
-            const { name, description } = request.body
-            const image = request.file
+            const { name, description, image } = request.body
 
             if (!name || !description) {
                 return response.status(400).json({ success: false, message: 'Fields is missing!' })
             }
 
-            let base64
-
-            if (image) {
-                base64 = Buffer.from(fs.readFileSync(image.path)).toString('base64')
-
-                fs.unlink(image.path, (error) => {
-                    if (error) throw error
-                    console.log(`${image.path} has been deleted!`)
-                })
-            }
-
             const data = await db.Product.create({
-                name, description, image: image ? base64 : null
+                name, description, image
             })
 
             return response.status(201).json({ success: true, data })
@@ -139,8 +127,7 @@ class ProductController {
         try {
             const { id } = request.params
 
-            const { name, description } = request.body
-            const image = request.file
+            const { name, description, image } = request.body
 
             if (!name || !description) {
                 return response.status(400).json({ success: false, message: 'Fields is missing!' })
@@ -149,19 +136,8 @@ class ProductController {
             const data = await db.Product.findOne({ where: { id } })
             if (!data) return response.status(404).json({ success: false, message: 'Product not found!' })
 
-            let base64
-
-            if (image) {
-                base64 = Buffer.from(fs.readFileSync(image.path)).toString('base64')
-
-                fs.unlink(image.path, (error) => {
-                    if (error) throw error
-                    console.log(`${image.path} has been deleted!`)
-                })
-            }
-
             await data.update({
-                name, description, image: image ? base64 : data.image
+                name, description, image: image ? image : data.image
             })
 
             return response.status(200).json({ success: true, data })
