@@ -10,22 +10,22 @@ const swaggerFile = require('./swagger.json')
 require("dotenv").config()
 
 const port = process.env.PORT ? process.env.PORT : 3000
-const url = process.env.URL ? `${process.env.URL}:${port}` : `http://localhost:${port}`
+const url = process.env.URL_SITE ? `${process.env.URL_SITE}:${port}` : `http://localhost:${port}`
 
 const app = express()
 
 app.use(cors())
-app.use(express.json({limit: "50mb"}))
+app.use(express.json({ limit: "50mb" }))
 app.use(express.urlencoded({ limit: "50mb", extended: true }))
 app.use(morgan("common"))
 
-//const optionsSwagger = {
-//    swaggerOptions: {
-//        docExpansion: "none"
-//    }
-//}
+const optionsSwagger = {
+    swaggerOptions: {
+        docExpansion: "none"
+    }
+}
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile))
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile, optionsSwagger))
 
 app.get('/', (_, response) => {
     response.status(200).json({ success: true, message: "API da ShopScore na área, faça a sua requisição! 😜🫶" })
