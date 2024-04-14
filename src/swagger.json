@@ -11,7 +11,7 @@
             "description": "API local"
         },
         {
-            "url": "https://shopscore-api.vercel.app",
+            "url": "https://shopscore-api.onrender.com/",
             "description": "API online"
         }
     ],
