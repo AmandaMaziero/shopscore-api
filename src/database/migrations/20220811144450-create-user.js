@@ -34,7 +34,7 @@ module.exports = {
       },
       gender: {
         allowNull: false,
-        comment: '0 - Outro/Prefiro não informar; 1 - Feminino; 2 - Masculino;',
+        comment: '0 - Outro; 1 - Feminino; 2 - Masculino; 3 - Prefiro não informar;',
         type: Sequelize.INTEGER
       },
       image: {

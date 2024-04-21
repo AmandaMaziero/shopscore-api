@@ -162,7 +162,7 @@ class ProductController {
             if (!product) return response.status(404).json({ success: false, message: 'Product not found!' })
 
             const data = await db.StoreProduct.create({
-                price, idstore, idproduct
+                price, idstore, idproduct: id
             })
 
             return response.status(201).json({ success: true, data })

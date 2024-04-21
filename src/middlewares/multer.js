@@ -8,7 +8,7 @@ module.exports = {
         return (request, response, next) => {
             const folder = request.params.folder
 
-            if (folder != 'users' && folder != 'evaluations') {
+            if (folder != 'users' && folder != 'evaluations' && folder != 'products') {
                 return response.status(400).json({ success: false, message: "The folder is invalid!" })
             }
 

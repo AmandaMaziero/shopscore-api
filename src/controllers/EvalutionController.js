@@ -12,15 +12,14 @@ class EvalutionController {
             const user = await db.User.findOne({ where: { id: iduser } })
             if (!user) return response.status(404).json({ success: false, message: 'User not found!' })
 
-            const store = idstore ? await db.Store.findOne({ where: { id: idstore } }) : true
+            const store = await db.Store.findOne({ where: { id: idstore } })
             if (!store) return response.status(404).json({ success: false, message: 'Store not found!' })
 
             const storeproduct = idstoreproduct ? await db.StoreProduct.findOne({ where: { id: idstoreproduct } }) : true
             if (!storeproduct) return response.status(404).json({ success: false, message: 'Product not found!' })
 
             const data = await db.sequelize.transaction(async (t) => {
-
-                const evaluation = await db.Evalution.create({
+                const evaluation = await db.Evaluation.create({
                     title, description, rating, iduser, idstore, idstoreproduct
                 }, { transaction: t })
 
@@ -29,10 +28,12 @@ class EvalutionController {
                 }
 
                 if (store) {
-                    const sumEvaluations = await db.Evaluation.sum('rating', { where: { idstore: idstore } })
+                    const sumEvaluations = await db.Evaluation.sum('rating', { where: { idstore: idstore } }, { transaction: t })
+                    const evaluations = await db.Evaluation.count({ where: { idstore: idstore } }, { transaction: t })
+
                     await store.update({
-                        numberReviews: store.numberReviews + 1,
-                        rating: sumEvaluations / (store.numberReviews + 1)
+                        numberReview: evaluations + 1,
+                        quality: parseFloat((sumEvaluations / (evaluations + 1)).toFixed(2))
                     }, { transaction: t })
                 }
 
