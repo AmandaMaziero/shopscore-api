@@ -1,6 +1,9 @@
 const db = require('../models')
+const { Op } = require('sequelize')
+const Utils = require('../utils')
+const utilsFunctions = new Utils()
 
-class EvalutionController {
+class EvaluationController {
     static async register(request, response) {
         try {
             const { title, description, rating, iduser, idstore, idstoreproduct, images } = request.body
@@ -62,9 +65,9 @@ class EvalutionController {
 
             const pagination = utilsFunctions.pagination(request)
 
-            const count = await db.Evalution.count({ where: { ...where } })
+            const count = await db.Evaluation.count({ where: { ...where } })
 
-            const data = await db.Evalution.findAll({
+            const data = await db.Evaluation.findAll({
                 ...pagination,
                 where: {
                     ...where
@@ -171,4 +174,4 @@ class EvalutionController {
     }
 }
 
-module.exports = EvalutionController
+module.exports = EvaluationController
