@@ -6,7 +6,7 @@ const utilsFunctions = new Utils()
 class StoreController {
     static async register(request, response) {
         try {
-            const { cnpj, fantasyName, corporateName, email, password, description, telephone, cell } = request.body
+            const { cnpj, fantasyName, corporateName, email, password, description, telephone, cell, image } = request.body
 
             if (!cnpj || !fantasyName || !corporateName || !email || !password || !description || !cell) {
                 return response.status(400).json({ success: false, error: 'Fields is missing.' })
@@ -36,7 +36,7 @@ class StoreController {
             if (checkCell) return response.status(400).json({ success: false, message: "The already cell is in use!" })
 
             const data = await db.Store.create({
-                cnpj: formattedCnpj, fantasyName, corporateName, email, password: hash, description, telephone: formattedPhone, cell: formattedCell
+                cnpj: formattedCnpj, fantasyName, corporateName, email, password: hash, description, telephone: formattedPhone, cell: formattedCell, image
             })
 
             data.password = undefined
@@ -100,7 +100,7 @@ class StoreController {
         try {
             const { id } = request.params
 
-            const { fantasyName, corporateName, email, password, description, telephone, cell } = request.body
+            const { fantasyName, corporateName, email, password, description, telephone, cell, image } = request.body
 
             if (!fantasyName || !corporateName || !email || !description || !cell) {
                 return response.status(400).json({ success: false, error: 'Fields is missing.' })
@@ -129,7 +129,7 @@ class StoreController {
             if (checkCell && checkCell.id != id) return response.status(400).json({ success: false, message: "The already cell is in use!" })
 
             await data.update({
-                fantasyName, corporateName, email, description, telephone: formattedPhone, cell: formattedCell, password: hash ? hash : data.password
+                fantasyName, corporateName, email, description, telephone: formattedPhone, cell: formattedCell, password: hash ? hash : data.password, image: image ? image : data.image
             })
 
             data.password = undefined

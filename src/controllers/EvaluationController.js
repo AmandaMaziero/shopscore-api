@@ -71,7 +71,23 @@ class EvaluationController {
                 ...pagination,
                 where: {
                     ...where
-                }
+                },
+                include: [
+                    {
+                        model: db.StoreProduct,
+                        include: [
+                            {
+                                model: db.Product
+                            }
+                        ]
+                    },
+                    {
+                        model: db.Store
+                    },
+                    {
+                        model: db.User
+                    }
+                ]
             })
 
             return response.status(200).json({ success: true, data, count, page: pagination.offset == 0 ? 1 : pagination.offset, limit: pagination.limit })

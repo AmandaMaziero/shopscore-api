@@ -11,16 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Store.hasMany(models.StoreProduct, {
-        foreignKey: 'idstore',
-        as: 'StoreProduct'
+        foreignKey: 'idstore'
       })
       Store.hasMany(models.Evaluation, {
-        foreignKey: 'idstore',
-        as: 'Evaluation'
+        foreignKey: 'idstore'
       })
       Store.hasMany(models.Comment, {
-        foreignKey: 'idstore',
-        as: 'Comment'
+        foreignKey: 'idstore'
       })
     }
   }
@@ -36,7 +33,8 @@ module.exports = (sequelize, DataTypes) => {
     quality: DataTypes.FLOAT,
     numberReview: DataTypes.INTEGER,
     status: DataTypes.INTEGER,
-    code: DataTypes.STRING
+    code: DataTypes.STRING,
+    image: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Store',

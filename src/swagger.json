@@ -351,7 +351,7 @@
                 "tags": [
                     "Files"
                 ],
-                "description": "<b>Campos requeridos:</b> file; <br> <b>Tipos de folders:</b> users e evaluations",
+                "description": "<b>Campos requeridos:</b> file; <br> <b>Tipos de folders:</b> users, stores, products e evaluations",
                 "security": [
                     {
                         "bearerAuth": []
@@ -501,6 +501,10 @@
                                     "cell": {
                                         "type": "string",
                                         "example": "1533333333"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "example": "https://shopscore.s3.amazonaws.com/stores/arquivo.jpg"
                                     }
                                 }
                             }
@@ -688,6 +692,10 @@
                                     "cell": {
                                         "type": "string",
                                         "example": "1533333333"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "example": "https://shopscore.s3.amazonaws.com/stores/arquivo.jpg"
                                     }
                                 }
                             }

@@ -11,24 +11,19 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Evaluation.belongsTo(models.User, {
-        foreignKey: 'iduser',
-        as: 'User'
+        foreignKey: 'iduser'
       })
       Evaluation.belongsTo(models.Store, {
-        foreignKey: 'idstore',
-        as: 'Store'
+        foreignKey: 'idstore'
       })
       Evaluation.belongsTo(models.StoreProduct, {
-        foreignKey: 'idstoreproduct',
-        as: 'StoreProduct'
+        foreignKey: 'idstoreproduct'
       })
       Evaluation.hasMany(models.Annex, {
-        foreignKey: 'idevaluation',
-        as: 'Annex'
+        foreignKey: 'idevaluation'
       })
       Evaluation.hasMany(models.Comment, {
-        foreignKey: 'idevaluation',
-        as: 'Comment'
+        foreignKey: 'idevaluation'
       })
     }
   }
