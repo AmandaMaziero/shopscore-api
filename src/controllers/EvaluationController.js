@@ -23,7 +23,7 @@ class EvaluationController {
 
             const data = await db.sequelize.transaction(async (t) => {
                 const evaluation = await db.Evaluation.create({
-                    title, description, rating, iduser, idstore, idstoreproduct
+                    title, description, rating, iduser, idstore, idstoreproduct, status: 0
                 }, { transaction: t })
 
                 if (images && images.length > 0) {

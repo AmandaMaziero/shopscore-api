@@ -2,6 +2,7 @@ const db = require("../models")
 const bcrypt = require('bcrypt')
 const Utils = require('../utils/')
 const utilsFunctions = new Utils()
+const { Op } = require('sequelize')
 
 class StoreController {
     static async register(request, response) {
@@ -52,16 +53,19 @@ class StoreController {
 
     static async getAll(request, response) {
         try {
-            const { search, status } = request.query
+            const { search, quality, status } = request.query
 
-            const where = search ? { [Op.or]: [] } : {}
+            const where = search || quality || status ? { [Op.or]: [] } : {}
 
             search ? where[Op.or].push(
                 { fantasyName: { [Op.like]: `%${search}%` } },
                 { corporateName: { [Op.like]: `%${search}%` } },
                 { cnpj: { [Op.like]: `%${search}%` } }
             ) : null
+
             status ? where[Op.or].push({ status: { [status && status.length > 0 ? Op.eq : Op.in]: status } }) : null
+
+            quality ? where[Op.or].push({ quality: { [Op.gte]: 4.5 } }) : null
 
             const pagination = utilsFunctions.pagination(request)
 
