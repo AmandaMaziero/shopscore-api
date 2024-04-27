@@ -1,6 +1,9 @@
 const db = require("../models")
 const bcrypt = require("bcrypt")
 const fs = require("fs")
+const Utils = require("../utils/")
+const { or } = require("sequelize")
+const utilsFunctions = new Utils()
 
 class UserController {
     static async register(request, response) {
@@ -38,6 +41,30 @@ class UserController {
                 success: true,
                 data
             })
+        } catch (error) {
+            return response.status(500).json({ success: false, message: error.message })
+        }
+    }
+
+    static async getAll(request, response) {
+        try {
+            const pagination = utilsFunctions.pagination(request)
+
+            const count = await db.User.count()
+
+            const data = await db.User.findAll({
+                ...pagination,
+                where: { type: 1 }, 
+                include: [
+                    { model: db.Evaluation, limit: 1, required: true, order: [['createdAt', 'DESC']]}
+                ]
+            })
+
+            data.map(item => {
+                item.password = undefined
+            })
+
+            return response.status(200).json({ success: true, data, count, page: pagination.offset == 0 ? 1 : pagination.offset, limit: pagination.limit })
         } catch (error) {
             return response.status(500).json({ success: false, message: error.message })
         }

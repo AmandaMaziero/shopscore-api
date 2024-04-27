@@ -35,8 +35,8 @@ class EvaluationController {
                     const evaluations = await db.Evaluation.count({ where: { idstore: idstore } }, { transaction: t })
 
                     await store.update({
-                        numberReview: evaluations + 1,
-                        quality: parseFloat((sumEvaluations / (evaluations + 1)).toFixed(2))
+                        numberReview: evaluations,
+                        quality: parseFloat((sumEvaluations / evaluations).toFixed(2))
                     }, { transaction: t })
                 }
 
