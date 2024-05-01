@@ -113,6 +113,9 @@ class EvaluationController {
                         model: db.Annex
                     },
                     {
+                        model: db.User
+                    },
+                    {
                         model: db.Comment,
                         include: [
                             {
