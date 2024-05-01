@@ -653,6 +653,48 @@
                 "x-codegen-request-body-name": "body"
             }
         },
+        "/api/stores/cnpj/info": {
+            "get": {
+                "summary": "Get Info By CNPJ",
+                "tags": [
+                    "Stores"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "cnpj",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {}
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {}
+                    }
+                },
+                "x-codegen-request-body-name": "body"
+            }
+        },
         "/api/stores/{id}": {
             "get": {
                 "summary": "Get By Store Id",

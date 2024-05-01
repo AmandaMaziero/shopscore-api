@@ -3,22 +3,23 @@ const bcrypt = require('bcrypt')
 const Utils = require('../utils/')
 const utilsFunctions = new Utils()
 const { Op } = require('sequelize')
+const axios = require('axios')
 
 class StoreController {
     static async register(request, response) {
         try {
             const { cnpj, fantasyName, corporateName, email, password, description, telephone, cell, image } = request.body
 
-            if (!cnpj || !fantasyName || !corporateName || !email || !password || !description || !cell) {
+            if (!cnpj || !fantasyName || !corporateName || !email || !cell) {
                 return response.status(400).json({ success: false, error: 'Fields is missing.' })
             }
 
             const regex = /^(?=.*[@!#$%^&*()/\\])[@!#$%^&*()/\\a-zA-Z0-9]{8,}$/
-            const regextTest = regex.test(password)
+            const regextTest = password ? regex.test(password) : true
 
             if (!regextTest) return response.status(400).json({ success: false, message: 'The password must be at least 8 characters long, one of which must be special!' })
 
-            const hash = await bcrypt.hash(password, 12)
+            const hash = password ? await bcrypt.hash(password, 12) : null
 
             const formattedPhone = telephone ? telephone.replace(/\D+/g, '') : null
             const formattedCell = cell.replace(/\D+/g, '')
@@ -46,6 +47,33 @@ class StoreController {
                 success: true,
                 data
             })
+        } catch (error) {
+            return response.status(500).json({ success: false, message: error.message })
+        }
+    }
+
+    static async getCNPJ(request, response) {
+        try {
+            const { cnpj } = request.query
+
+            if (!cnpj) return response.status(400).json({ success: false, message: 'CNPJ is missing!' })
+
+            const res = await axios.get(`https://api.cnpja.com/office/${cnpj}`, {
+                headers: {
+                    'Authorization': process.env.CNPJA_TOKEN
+                }
+            })
+
+            const data = {
+                fantasyName: res.data.alias ? res.data.alias : res.data.company.name,
+                corporateName: res.data.company.name,
+                cnpj: res.data.taxId,
+                email: res.data.emails[0].address,
+                cell: `${res.data.phones[0].area}${res.data.phones[0].number}`,
+                description: res.data.mainActivity.text,
+            }
+
+            return response.status(200).json({ success: true, data })
         } catch (error) {
             return response.status(500).json({ success: false, message: error.message })
         }
