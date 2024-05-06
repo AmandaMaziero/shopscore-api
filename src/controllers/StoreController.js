@@ -68,8 +68,8 @@ class StoreController {
                 fantasyName: res.data.alias ? res.data.alias : res.data.company.name,
                 corporateName: res.data.company.name,
                 cnpj: res.data.taxId,
-                email: res.data.emails[0].address,
-                cell: `${res.data.phones[0].area}${res.data.phones[0].number}`,
+                email: res.data.emails.length > 0 ? res.data.emails[0].address : '',
+                cell: res.data.phones.length > 0 ? `${res.data.phones[0].area}${res.data.phones[0].number}` : '',
                 description: res.data.mainActivity.text,
             }
 
