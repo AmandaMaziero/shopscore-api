@@ -53,7 +53,7 @@ class EvaluationController {
         try {
             const { search, status, idstore, iduser } = request.query
 
-            const where = search ? { [Op.or]: [] } : {}
+            const where = search || status || idstore || iduser ? { [Op.or]: [] } : {}
 
             search ? where[Op.or].push(
                 { title: { [Op.like]: `%${search}%` } },

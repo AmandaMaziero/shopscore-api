@@ -26,7 +26,7 @@ class ProductController {
         try {
             const { search, status } = request.query
 
-            const where = search ? { [Op.or]: [] } : {}
+            const where = search || status ? { [Op.or]: [] } : {}
 
             search ? where[Op.or].push(
                 { name: { [Op.like]: `%${search}%` } },
@@ -70,7 +70,7 @@ class ProductController {
 
             const { search, status } = request.query
 
-            const where = search ? { [Op.or]: [] } : {}
+            const where = search || status ? { [Op.or]: [] } : {}
 
             search ? where[Op.or].push(
                 { name: { [Op.like]: `%${search}%` } },
