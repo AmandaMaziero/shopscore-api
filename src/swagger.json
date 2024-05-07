@@ -466,24 +466,20 @@
                         "bearerAuth": []
                     }
                 ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "urls": {
-                                        "type": "array",
-                                        "example": [
-                                            "https://shopscore.s3.amazonaws.com/evaluations/arquivo.png",
-                                            "https://shopscore.s3.amazonaws.com/users/arquivo.jpg"
-                                        ]
-                                    }
-                                }
-                            }
-                        }
+                "parameters": [
+                    {
+                        "name": "urls",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "array"
+                        },
+                        "example": [
+                            "https://shopscore.s3.amazonaws.com/evaluations/arquivo.png",
+                            "https://shopscore.s3.amazonaws.com/users/arquivo.jpg"
+                        ]
                     }
-                },
+                ],
                 "responses": {
                     "201": {
                         "description": "Created",

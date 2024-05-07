@@ -27,7 +27,7 @@ class FileController {
 
     static async delete(request, response) {
         try {
-            const { urls } = request.body
+            const { urls } = request.query
 
             if (!urls) return response.status(400).json({ success: false, message: 'Fields is missing!' })
 
