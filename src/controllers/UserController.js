@@ -2,7 +2,7 @@ const db = require("../models")
 const bcrypt = require("bcrypt")
 const fs = require("fs")
 const Utils = require("../utils/")
-const { or } = require("sequelize")
+const sequelize = require("sequelize")
 const utilsFunctions = new Utils()
 
 class UserController {
@@ -57,7 +57,8 @@ class UserController {
                 where: { type: 1 }, 
                 include: [
                     { model: db.Evaluation, limit: 1, required: true, order: [['createdAt', 'DESC']]}
-                ]
+                ],
+                order: sequelize.literal('RAND()')
             })
 
             data.map(item => {
