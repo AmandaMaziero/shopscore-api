@@ -145,7 +145,8 @@ class EvaluationController {
             if (!data) return response.status(404).json({ success: false, message: 'Evaluation not found!' })
 
             await data.update({
-                answer
+                answer,
+                status: 1
             })
 
             return response.status(200).json({ success: true, message: 'Answer sent successfully', data })
