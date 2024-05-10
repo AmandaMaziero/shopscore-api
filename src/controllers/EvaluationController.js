@@ -40,6 +40,16 @@ class EvaluationController {
                     }, { transaction: t })
                 }
 
+                if (storeproduct) {
+                    const sumEvaluations = await db.Evaluation.sum('rating', { where: { idstoreproduct: idstoreproduct } }, { transaction: t })
+                    const evaluations = await db.Evaluation.count({ where: { idstoreproduct: idstoreproduct } }, { transaction: t })
+
+                    await storeproduct.update({
+                        numberReview: evaluations,
+                        quality: parseFloat((sumEvaluations / evaluations).toFixed(2))
+                    }, { transaction: t })
+                }
+
                 return evaluation
             })
 
