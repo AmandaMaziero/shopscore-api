@@ -8,7 +8,7 @@ class ProductController {
         try {
             const { name, description, image } = request.body
 
-            if (!name || !description) {
+            if (!name) {
                 return response.status(400).json({ success: false, message: 'Fields is missing!' })
             }
 
@@ -151,7 +151,7 @@ class ProductController {
             const { id } = request.params
             const { idstore, price } = request.body
 
-            if (!idstore || !price) {
+            if (!idstore) {
                 return response.status(400).json({ success: false, message: 'Fields is missing!' })
             }
 

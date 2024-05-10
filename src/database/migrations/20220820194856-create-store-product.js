@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       price: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DECIMAL(20,2)
       },
       quality: {
