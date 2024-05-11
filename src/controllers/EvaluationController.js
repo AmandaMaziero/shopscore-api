@@ -30,23 +30,25 @@ class EvaluationController {
                     await db.Annex.bulkCreate(images.map(image => ({ image, idevaluation: evaluation.id })), { transaction: t })
                 }
 
-                if (store) {
+                if (idstore) {
                     const sumEvaluations = await db.Evaluation.sum('rating', { where: { idstore: idstore } }, { transaction: t })
                     const evaluations = await db.Evaluation.count({ where: { idstore: idstore } }, { transaction: t })
 
+                    const quality = parseFloat(((sumEvaluations + 1) / (evaluations + 1)).toFixed(2))
                     await store.update({
-                        numberReview: evaluations,
-                        quality: parseFloat((sumEvaluations / evaluations).toFixed(2))
+                        numberReview: evaluations + 1,
+                        quality
                     }, { transaction: t })
                 }
 
-                if (storeproduct) {
+                if (idstoreproduct) {
                     const sumEvaluations = await db.Evaluation.sum('rating', { where: { idstoreproduct: idstoreproduct } }, { transaction: t })
                     const evaluations = await db.Evaluation.count({ where: { idstoreproduct: idstoreproduct } }, { transaction: t })
 
+                    const quality = parseFloat(((sumEvaluations + 1) / (evaluations + 1)).toFixed(2))
                     await storeproduct.update({
-                        numberReview: evaluations,
-                        quality: parseFloat((sumEvaluations / evaluations).toFixed(2))
+                        numberReview: evaluations + 1,
+                        quality
                     }, { transaction: t })
                 }
 
