@@ -31,7 +31,7 @@ class StoreController {
             const checkCnpj = await db.Store.findOne({ where: { cnpj: formattedCnpj } })
             if (checkCnpj) return response.status(400).json({ success: false, message: "The already cnpj is in use!" })
 
-            const checkTelephone = await db.Store.findOne({ where: { telephone: formattedPhone } })
+            const checkTelephone = telephone ? await db.Store.findOne({ where: { telephone: formattedPhone } }) : false
             if (checkTelephone) return response.status(400).json({ success: false, message: "The already telephone is in use!" })
 
             const checkCell = await db.Store.findOne({ where: { cell: formattedCell } })
