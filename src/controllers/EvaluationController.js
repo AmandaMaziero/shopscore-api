@@ -31,8 +31,10 @@ class EvaluationController {
                 }
 
                 if (idstore) {
-                    const sumEvaluations = await db.Evaluation.sum('rating', { where: { idstore: idstore } }, { transaction: t })
+                    let sumEvaluations = await db.Evaluation.sum('rating', { where: { idstore: idstore } }, { transaction: t })
                     const evaluations = await db.Evaluation.count({ where: { idstore: idstore } }, { transaction: t })
+
+                    sumEvaluations = sumEvaluations == null ? rating : sumEvaluations + rating
 
                     const quality = parseFloat(((sumEvaluations + 1) / (evaluations + 1)).toFixed(2))
                     await store.update({
@@ -42,8 +44,10 @@ class EvaluationController {
                 }
 
                 if (idstoreproduct) {
-                    const sumEvaluations = await db.Evaluation.sum('rating', { where: { idstoreproduct: idstoreproduct } }, { transaction: t })
+                    let sumEvaluations = await db.Evaluation.sum('rating', { where: { idstoreproduct: idstoreproduct } }, { transaction: t })
                     const evaluations = await db.Evaluation.count({ where: { idstoreproduct: idstoreproduct } }, { transaction: t })
+
+                    sumEvaluations = sumEvaluations == null ? rating : sumEvaluations + rating
 
                     const quality = parseFloat(((sumEvaluations + 1) / (evaluations + 1)).toFixed(2))
                     await storeproduct.update({
