@@ -10,7 +10,7 @@ class StoreController {
         try {
             const { cnpj, fantasyName, corporateName, email, password, description, telephone, cell, image } = request.body
 
-            if (!cnpj || !fantasyName || !corporateName || !email || !cell) {
+            if (!cnpj || !fantasyName || !corporateName || !email) {
                 return response.status(400).json({ success: false, error: 'Fields is missing.' })
             }
 
@@ -22,7 +22,7 @@ class StoreController {
             const hash = password ? await bcrypt.hash(password, 12) : null
 
             const formattedPhone = telephone ? telephone.replace(/\D+/g, '') : null
-            const formattedCell = cell.replace(/\D+/g, '')
+            const formattedCell = cell ? cell.replace(/\D+/g, '') : null
             const formattedCnpj = cnpj.replace(/\D+/g, '')
 
             const checkEmail = await db.Store.findOne({ where: { email } })
@@ -34,7 +34,7 @@ class StoreController {
             const checkTelephone = telephone ? await db.Store.findOne({ where: { telephone: formattedPhone } }) : false
             if (checkTelephone) return response.status(400).json({ success: false, message: "The already telephone is in use!" })
 
-            const checkCell = await db.Store.findOne({ where: { cell: formattedCell } })
+            const checkCell = cell ? await db.Store.findOne({ where: { cell: formattedCell } }) : false
             if (checkCell) return response.status(400).json({ success: false, message: "The already cell is in use!" })
 
             const data = await db.Store.create({

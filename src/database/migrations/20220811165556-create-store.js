@@ -37,7 +37,7 @@ module.exports = {
         type: Sequelize.STRING(11)
       },
       cell: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING(11)
       },
       quality: {
