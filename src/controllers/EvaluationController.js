@@ -36,7 +36,7 @@ class EvaluationController {
 
                     sumEvaluations = sumEvaluations == null ? rating : sumEvaluations + rating
 
-                    const quality = parseFloat(((sumEvaluations + 1) / (evaluations + 1)).toFixed(2))
+                    const quality = parseFloat((sumEvaluations + 1) / (evaluations + 1))
                     await store.update({
                         numberReview: evaluations + 1,
                         quality
@@ -49,7 +49,7 @@ class EvaluationController {
 
                     sumEvaluations = sumEvaluations == null ? rating : sumEvaluations + rating
 
-                    const quality = parseFloat(((sumEvaluations + 1) / (evaluations + 1)).toFixed(2))
+                    const quality = parseFloat((sumEvaluations + 1) / (evaluations + 1))
                     await storeproduct.update({
                         numberReview: evaluations + 1,
                         quality
